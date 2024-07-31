@@ -5,18 +5,16 @@ const messages = [
     'Data has been processed and sent to the server. It\'s ready for download. And we need long text for testing, so here it is',
 ];
 
+const mockLinks = [
+    'https://google.com',
+    '/details/123',
+]
+
 const types = ['success', 'info', 'alert'];
 
 class NotificationService {
     listener = null
     interval = null
-
-    constructor() {
-        this.dateFormatter = Intl.DateTimeFormat('en-GB', {
-            dateStyle: 'full',
-            timeStyle: 'short'
-        })
-    }
 
     startListening(listener) {
         this.listener = listener;
@@ -24,11 +22,18 @@ class NotificationService {
         this.interval = setInterval(() => {
             const randomType = types[Math.floor(Math.random() * types.length)];
             const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            const timestamp = this.dateFormatter.format(new Date());
-            const id = Date.now();
+            const randomLink = mockLinks[Math.floor(Math.random() * (mockLinks.length + 10))];
+            const timestamp = Date.now();
+            const id = timestamp;
 
-            this.listener?.(id, randomType, randomMessage, timestamp);
-        }, 5000);
+            this.listener?.({
+                id,
+                type: randomType,
+                message: randomMessage,
+                timestamp,
+                link: randomLink
+            });
+        }, 10000);
     }
 
     stopListening() {

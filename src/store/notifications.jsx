@@ -36,10 +36,10 @@ function notificationReducer(state, action) {
 export function NotificationProvider({ children }) {
     const [state, dispatch] = useReducer(notificationReducer, initialState);
 
-    const addNotification = useCallback((id, type, message, timestamp, link = null) => {
+    const addNotification = useCallback((notification) => {
         dispatch({
             type: 'ADD_NOTIFICATION',
-            payload: { id, type, message, timestamp, link },
+            payload: notification,
         });
         playNotificationSound();
     }, []);
