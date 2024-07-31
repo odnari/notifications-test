@@ -2,6 +2,7 @@ import {Menu, Transition} from '@headlessui/react';
 import Notification from './Notification';
 import {useNotifications} from "../store/notifications.jsx";
 import bellIcon from "../assets/bell.svg";
+import clearAllIcon from "../assets/clear-all.svg";
 
 function NotificationDropdown() {
     const {notifications, removeNotification, clearAllNotifications, unread} = useNotifications();
@@ -9,6 +10,7 @@ function NotificationDropdown() {
     const handleActionClick = (notification) => {
         const {link} = notification;
 
+        // TODO: Whitelist can be implemented for more flexibility
         if (link && link.startsWith('/')) {
             console.log('Navigating to:', link);
         } else {
@@ -46,13 +48,14 @@ function NotificationDropdown() {
                 <Menu.Items
                     className="origin-top-right absolute right-0 mt-2 w-96 rounded-md shadow-xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                        <div className="px-4 py-2 border-b">
+                        <div className="pl-4 pr-2 py-2 border-b">
                             <div className="flex justify-between items-center">
                                 <h3 className="text-lg font-medium">Notifications ({unread})</h3>
                                 <button
                                     onClick={clearAllNotifications}
-                                    className="text-sm text-indigo-600 hover:text-indigo-900 rounded-xl px-2 py-1 hover:bg-indigo-100"
+                                    className="flex text-xs leading-none items-center hover:text-indigo-900 rounded-xl px-2 py-1 hover:bg-indigo-100"
                                 >
+                                    <img src={clearAllIcon} className="w-4 h-4 mr-1" alt="Clear all icon"/>
                                     Clear All
                                 </button>
                             </div>
