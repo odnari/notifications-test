@@ -19,8 +19,8 @@ function NotificationDropdown() {
     };
 
     return (
-        <Menu as="div" className="relative inline-block text-left">
-            <Menu.Button >
+        <Menu as="div" className="flex items-center justify-center">
+            <Menu.Button>
                 {
                     ({open}) => (
                         <div className={`p-2 rounded-full transition ease-in-out duration-100 hover:bg-gray-200 relative ${open ? 'bg-gray-200' : ''}`}>
