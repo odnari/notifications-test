@@ -24,12 +24,12 @@ const notificationTypeConfig = {
     }
 };
 
-function Notification({notification}) {
+function Notification({notification, onRemove, onActionClick}) {
     const type = notificationTypeConfig[notification.type];
 
     return (
         <div
-            className="flex w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow"
+            className="flex w-full p-4 text-gray-500 bg-white rounded-lg shadow"
         >
             {type && (
                 <div
@@ -43,7 +43,7 @@ function Notification({notification}) {
                 {notification.link && (
                     <button
                         className="text-xs font-medium rounded-xl -ml-1 px-1.5 py-0.5 mt-0.5 text-blue-700 hover:bg-blue-50"
-                        onClick={() => {}}
+                        onClick={() => onActionClick(notification)}
                     >
                         View details
                     </button>
@@ -52,7 +52,7 @@ function Notification({notification}) {
             <button
                 type="button"
                 className="ms-auto flex-shrink-0 -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-full p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-7 w-7"
-                onClick={() => {}}
+                onClick={() => onRemove(notification.id)}
             >
                 <img
                     src={closeIcon}
