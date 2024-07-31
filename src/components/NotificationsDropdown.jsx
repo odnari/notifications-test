@@ -53,7 +53,7 @@ function NotificationDropdown() {
                                 <h3 className="text-lg font-medium">Notifications ({unread})</h3>
                                 <button
                                     onClick={clearAllNotifications}
-                                    className="flex text-xs leading-none items-center hover:text-indigo-900 rounded-xl px-2 py-1 hover:bg-indigo-100"
+                                    className="flex text-xs leading-none items-center hover:text-gray-900 rounded-xl px-2 py-1 hover:bg-gray-100"
                                 >
                                     <img src={clearAllIcon} className="w-4 h-4 mr-1" alt="Clear all icon"/>
                                     Clear All

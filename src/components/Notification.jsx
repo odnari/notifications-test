@@ -32,7 +32,7 @@ const Notification = forwardRef(({notification, onRemove, onActionClick}, ref) =
     return (
         <div
             ref={ref}
-            className="flex w-full p-4 text-gray-500 bg-white rounded-lg shadow"
+            className="flex w-full p-4 text-gray-600 bg-white rounded-lg shadow"
         >
             {type && (
                 <div
@@ -42,7 +42,7 @@ const Notification = forwardRef(({notification, onRemove, onActionClick}, ref) =
             )}
             <div className="text-sm font-normal -mt-0.5">
                 <p>{notification.message}</p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-500">
                     <FormattedDate date={notification.timestamp} />
                 </p>
                 {notification.link && (

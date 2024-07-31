@@ -31,7 +31,7 @@ function NotificationPlayground() {
     };
 
     return (
-        <div className="p-4 w-96 bg-white rounded-lg shadow-lg border border-indigo-50 shadow-indigo-100">
+        <div className="p-4 w-96 bg-white rounded-lg shadow-lg border border-gray-100 shadow-gray-200">
             <h2 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">Notification Playground</h2>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <div>

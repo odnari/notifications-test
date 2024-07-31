@@ -33,7 +33,7 @@ class NotificationService {
                 timestamp,
                 link: randomLink
             });
-        }, 10000);
+        }, 7000);
     }
 
     stopListening() {

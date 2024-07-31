@@ -4,13 +4,32 @@ const labels = [
     {text: "I'm Feeling Lucky", classes: "text-pink-400"},
     {text: "Push", classes: "text-pink-700"},
     {text: "Push me", classes: " text-pink-500"},
-    {text: "And then...", classes: " text-amber-700"},
+    {text: "And then...", classes: " text-gray-700"},
     {text: "just touch me", classes: " text-red-500"},
     {text: "Till I can get my", classes: " text-purple-700"},
     {text: "Notification...", classes: " text-lg text-purple-500"},
-    {text: "Notification...", classes: " text-xl text-indigo-500"},
+    {text: "Notification...", classes: " text-xl text-gray-500"},
     {text: "Notification!", classes: " text-2xl text-teal-500"},
 ];
+
+const animationStyles = `
+  @keyframes shadowColorChange {
+    0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
+    33% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); }
+    66% { box-shadow: 0 0 15px rgba(0, 0, 255, 0.7); }
+    100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
+  }
+
+  @keyframes pulsate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  .animate-shadow {
+    animation: shadowColorChange 3s linear infinite, pulsate 0.5s ease-in-out infinite;
+  }
+`
 
 const LuckyButton = ({onClick}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,26 +48,7 @@ const LuckyButton = ({onClick}) => {
 
     return (
         <>
-            <style>
-                {`
-          @keyframes shadowColorChange {
-            0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
-            33% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); }
-            66% { box-shadow: 0 0 15px rgba(0, 0, 255, 0.7); }
-            100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
-          }
-
-          @keyframes pulsate {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-          }
-
-          .animate-shadow {
-            animation: shadowColorChange 3s linear infinite, pulsate 1s ease-in-out infinite;
-          }
-        `}
-            </style>
+            <style>{animationStyles}</style>
             <button
                 type={"button"}
                 onClick={handleClick}
