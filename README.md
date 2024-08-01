@@ -1,5 +1,7 @@
 # Notifications
 
+[Live Demo](https://notifications-sim.netlify.app/)
+
 ## Getting started
 
 ```bash
