@@ -3,6 +3,7 @@ import SuccessIcon from "./icons/SuccessIcon.jsx";
 import InfoIcon from "./icons/InfoIcon.jsx";
 import AlertIcon from "./icons/AlertIcon.jsx";
 import FormattedDate from "./FormatDate.jsx";
+import {truncateText} from "../utils/text.js";
 
 const notificationTypes = {
     success: 'success',
@@ -39,7 +40,7 @@ const Notification = ({notification, onRemove, onActionClick}) => {
                 </div>
             )}
             <div className="text-sm font-normal -mt-0.5">
-                <p>{notification.message}</p>
+                <p>{truncateText(notification.message)}</p>
                 <p className="text-xs text-gray-500">
                     <FormattedDate date={notification.timestamp}/>
                 </p>
