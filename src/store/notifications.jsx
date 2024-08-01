@@ -9,7 +9,8 @@ const playNotificationSound = () => {
     playSound('/notification.mp3')
 };
 
-export const NotificationContext = createContext();
+export const NotificationsContext = createContext();
+export const NotificationsStateContext = createContext();
 
 const initialState = {
     notifications: []
@@ -66,19 +67,24 @@ export function NotificationProvider({children}) {
         };
     }, [addNotification]);
 
-    const value = useMemo(() => ({
-        ...state,
-        unread: state.notifications.length,
+    const actionsValue = useMemo(() => ({
         addNotification,
         removeNotification,
         clearAllNotifications
-    }), [state, addNotification, removeNotification, clearAllNotifications]);
+    }), [addNotification, removeNotification, clearAllNotifications]);
+    
+    const stateValue = {
+        ...state,
+        count: state.notifications.length,
+    }
 
     return (
-        <NotificationContext.Provider
-            value={value}
+        <NotificationsContext.Provider
+            value={actionsValue}
         >
-            {children}
-        </NotificationContext.Provider>
+            <NotificationsStateContext.Provider value={stateValue}>
+                {children}
+            </NotificationsStateContext.Provider>
+        </NotificationsContext.Provider>
     );
 }

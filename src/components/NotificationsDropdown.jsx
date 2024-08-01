@@ -4,12 +4,14 @@ import clearAllIcon from "../assets/clear-all.svg";
 import NotificationIcon from "./NotificationIcon.jsx";
 import {useNotifications} from "../hooks/useNotifications.js";
 import {useCallback} from "react";
+import {useNotificationsState} from "../hooks/useNotificationsState.js";
 
 function NotificationDropdown() {
-    const {notifications, removeNotification, clearAllNotifications, unread} = useNotifications();
+    const {removeNotification, clearAllNotifications} = useNotifications();
+    const {notifications, count} = useNotificationsState();
 
     const handleActionClick = useCallback((notification) => {
-        const { link } = notification;
+        const {link} = notification;
         if (link) {
             alert(`Navigating to ${link}`);
         }
@@ -18,8 +20,8 @@ function NotificationDropdown() {
     return (
         <Menu as="div" className="relative inline-block">
             <Menu.Button>
-                {({ open }) => (
-                    <NotificationIcon open={open} unread={unread} />
+                {({open}) => (
+                    <NotificationIcon open={open} unread={count}/>
                 )}
             </Menu.Button>
 
@@ -36,7 +38,7 @@ function NotificationDropdown() {
                     <div className="py-1">
                         <div className="pl-4 pr-2 py-2 border-b">
                             <div className="flex justify-between items-center">
-                                <h3 className="text-lg font-medium">Notifications ({unread})</h3>
+                                <h3 className="text-lg font-medium">Notifications ({count})</h3>
                                 <button
                                     onClick={clearAllNotifications}
                                     className="flex text-xs leading-none items-center hover:text-gray-900 rounded-xl px-2 py-1 hover:bg-gray-100"
@@ -47,7 +49,7 @@ function NotificationDropdown() {
                             </div>
                         </div>
                         <div className="max-h-[50vh] overflow-y-auto py-3 px-4 flex flex-col gap-3">
-                            {notifications.length === 0 ? (
+                            {count === 0 ? (
                                 <p className="px-4 py-6 text-sm text-center text-gray-500">No notifications</p>
                             ) : (
                                 notifications.map((notification) => (
