@@ -3,16 +3,17 @@ import Notification from './Notification';
 import clearAllIcon from "../assets/clear-all.svg";
 import NotificationIcon from "./NotificationIcon.jsx";
 import {useNotifications} from "../hooks/useNotifications.js";
+import {useCallback} from "react";
 
 function NotificationDropdown() {
     const {notifications, removeNotification, clearAllNotifications, unread} = useNotifications();
 
-    const handleActionClick = (notification) => {
+    const handleActionClick = useCallback((notification) => {
         const { link } = notification;
         if (link) {
             alert(`Navigating to ${link}`);
         }
-    };
+    }, []);
 
     return (
         <Menu as="div" className="relative inline-block">
@@ -50,13 +51,12 @@ function NotificationDropdown() {
                                 <p className="px-4 py-6 text-sm text-center text-gray-500">No notifications</p>
                             ) : (
                                 notifications.map((notification) => (
-                                    <Menu.Item key={notification.id}>
-                                        <Notification
-                                            notification={notification}
-                                            onRemove={removeNotification}
-                                            onActionClick={handleActionClick}
-                                        />
-                                    </Menu.Item>
+                                    <Notification
+                                        key={notification.id}
+                                        notification={notification}
+                                        onRemove={removeNotification}
+                                        onActionClick={handleActionClick}
+                                    />
                                 ))
                             )}
                         </div>

@@ -2,7 +2,6 @@ import closeIcon from '../assets/close.svg';
 import SuccessIcon from "./icons/SuccessIcon.jsx";
 import InfoIcon from "./icons/InfoIcon.jsx";
 import AlertIcon from "./icons/AlertIcon.jsx";
-import {forwardRef} from "react";
 import FormattedDate from "./FormatDate.jsx";
 
 const notificationTypes = {
@@ -26,12 +25,11 @@ const notificationTypeConfig = {
     }
 };
 
-const Notification = forwardRef(({notification, onRemove, onActionClick}, ref) => {
+const Notification = ({notification, onRemove, onActionClick}) => {
     const type = notificationTypeConfig[notification.type];
 
     return (
         <div
-            ref={ref}
             className="flex w-full p-4 text-gray-600 bg-white rounded-lg shadow"
         >
             {type && (
@@ -43,7 +41,7 @@ const Notification = forwardRef(({notification, onRemove, onActionClick}, ref) =
             <div className="text-sm font-normal -mt-0.5">
                 <p>{notification.message}</p>
                 <p className="text-xs text-gray-500">
-                    <FormattedDate date={notification.timestamp} />
+                    <FormattedDate date={notification.timestamp}/>
                 </p>
                 {notification.link && (
                     <button
@@ -67,10 +65,8 @@ const Notification = forwardRef(({notification, onRemove, onActionClick}, ref) =
             </button>
         </div>
     );
-});
+};
 
 Notification.Types = notificationTypes;
-
-Notification.displayName = 'Notification';
 
 export default Notification;
