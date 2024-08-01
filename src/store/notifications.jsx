@@ -1,6 +1,7 @@
-import {createContext, useContext, useReducer, useEffect, useCallback, useMemo} from 'react';
+import {createContext, useReducer, useEffect, useCallback, useMemo} from 'react';
 import NotificationService from '../services/notificationService.js';
 import {playSound} from "../utils/sound.js";
+import {isAllowedLink} from "../config/linksWhitelist.js";
 
 const notificationService = new NotificationService();
 
@@ -8,21 +9,26 @@ const playNotificationSound = () => {
     playSound('/notification.mp3')
 };
 
-const NotificationContext = createContext();
+export const NotificationContext = createContext();
 
 const initialState = {
     notifications: []
 };
 
-function notificationReducer(state, action) {
-    switch (action.type) {
+function notificationReducer(state, {type, payload}) {
+    switch (type) {
         case 'ADD_NOTIFICATION':
+            if (payload?.link && !isAllowedLink(payload.link)) {
+                console.warn('Potentially dangerous link removed:', payload.link);
+                delete payload.link;
+            }
+
             return {
-                notifications: [action.payload, ...state.notifications],
+                notifications: [payload, ...state.notifications],
             };
         case 'REMOVE_NOTIFICATION':
             return {
-                notifications: state.notifications.filter(n => n.id !== action.payload),
+                notifications: state.notifications.filter(n => n.id !== payload),
             };
         case 'CLEAR_ALL_NOTIFICATIONS':
             return {
@@ -33,7 +39,7 @@ function notificationReducer(state, action) {
     }
 }
 
-export function NotificationProvider({ children }) {
+export function NotificationProvider({children}) {
     const [state, dispatch] = useReducer(notificationReducer, initialState);
 
     const addNotification = useCallback((notification) => {
@@ -45,11 +51,11 @@ export function NotificationProvider({ children }) {
     }, []);
 
     const removeNotification = useCallback((id) => {
-        dispatch({ type: 'REMOVE_NOTIFICATION', payload: id });
+        dispatch({type: 'REMOVE_NOTIFICATION', payload: id});
     }, []);
 
     const clearAllNotifications = useCallback(() => {
-        dispatch({ type: 'CLEAR_ALL_NOTIFICATIONS' });
+        dispatch({type: 'CLEAR_ALL_NOTIFICATIONS'});
     }, []);
 
     useEffect(() => {
@@ -75,14 +81,4 @@ export function NotificationProvider({ children }) {
             {children}
         </NotificationContext.Provider>
     );
-}
-
-export function useNotifications() {
-    const context = useContext(NotificationContext);
-
-    if (!context) {
-        throw new Error('useNotification must be used within a NotificationProvider');
-    }
-
-    return context;
 }
