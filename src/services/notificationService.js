@@ -6,8 +6,9 @@ const messages = [
 ];
 
 const mockLinks = [
-    'https://google.com',
-    '/details/123',
+    'https://google.com', // not allowed
+    '/view/123', // allowed
+    'https://example.com/settings', // allowed
 ]
 
 const types = ['success', 'info', 'alert'];

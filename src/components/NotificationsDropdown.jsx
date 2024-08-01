@@ -1,40 +1,25 @@
 import {Menu, Transition} from '@headlessui/react';
 import Notification from './Notification';
-import {useNotifications} from "../store/notifications.jsx";
-import bellIcon from "../assets/bell.svg";
 import clearAllIcon from "../assets/clear-all.svg";
+import NotificationIcon from "./NotificationIcon.jsx";
+import {useNotifications} from "../hooks/useNotifications.js";
 
 function NotificationDropdown() {
     const {notifications, removeNotification, clearAllNotifications, unread} = useNotifications();
 
     const handleActionClick = (notification) => {
-        const {link} = notification;
-
-        // TODO: Whitelist can be implemented for more flexibility
-        if (link && link.startsWith('/')) {
-            console.log('Navigating to:', link);
-        } else {
-            console.warn('Potentially unsafe link:', link);
+        const { link } = notification;
+        if (link) {
+            alert(`Navigating to ${link}`);
         }
     };
 
     return (
         <Menu as="div" className="relative inline-block">
             <Menu.Button>
-                {
-                    ({open}) => (
-                        <span className={`inline-flex p-2 rounded-full transition ease-in-out duration-100 hover:bg-gray-200 relative ${open ? 'bg-gray-200' : ''}`}>
-                            <img src={bellIcon} alt="Bell ringing icon" className={`h-5 w-5`}/>
-                            {
-                                unread > 0 && (
-                                    <div
-                                        className="absolute inline-flex items-center justify-center w-2 h-2 bg-red-500 rounded-full top-2 end-2.5"
-                                    />
-                                )
-                            }
-                        </span>
-                    )
-                }
+                {({ open }) => (
+                    <NotificationIcon open={open} unread={unread} />
+                )}
             </Menu.Button>
 
             <Transition
