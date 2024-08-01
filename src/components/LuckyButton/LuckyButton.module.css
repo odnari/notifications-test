@@ -1,0 +1,17 @@
+@keyframes shadowColorChange {
+    0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
+    33% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); }
+    66% { box-shadow: 0 0 15px rgba(0, 0, 255, 0.7); }
+    100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
+}
+
+@keyframes pulsate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.animateShadow {
+    animation: shadowColorChange 3s linear infinite, pulsate 0.5s ease-in-out infinite;
+    border-color: transparent;
+}

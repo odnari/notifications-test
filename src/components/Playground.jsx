@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import {useNotifications} from "../store/notifications.jsx";
-import LuckyButton from "./LuckyButton.jsx";
+import LuckyButton from "./LuckyButton/LuckyButton.jsx";
+import {useNotifications} from "../hooks/useNotifications.js";
 
 function NotificationPlayground() {
     const {addNotification} = useNotifications();

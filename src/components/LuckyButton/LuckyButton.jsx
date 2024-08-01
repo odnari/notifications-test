@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import styles from './LuckyButton.module.css';
 
 const labels = [
     {text: "I'm Feeling Lucky", classes: "text-pink-400"},
@@ -54,7 +55,7 @@ const LuckyButton = ({onClick}) => {
                 onClick={handleClick}
                 className={`w-full px-4 h-10 rounded-md shadow-sm bg-white font-bold border-2 border-gray-600 transition-all duration-300 ${
                     labels[currentIndex].classes
-                } ${isAnimating ? 'animate-shadow !border-transparent' : 'hover:shadow-lg'}`}
+                } ${isAnimating ? styles.animateShadow : 'hover:shadow-lg'}`}
             >
                 {labels[currentIndex].text}
             </button>
